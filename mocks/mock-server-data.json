@@ -1,0 +1,131 @@
+{
+  "api": {
+    "city": [
+      {
+        "name": "Paris",
+        "latitude": 48.85661,
+        "longitude": 2.351499
+      },
+      {
+        "name": "Cologne",
+        "latitude": 50.938361,
+        "longitude": 6.959974
+      },
+      {
+        "name": "Brussels",
+        "latitude": 50.846557,
+        "longitude": 4.351697
+      },
+      {
+        "name": "Amsterdam",
+        "latitude": 52.370216,
+        "longitude": 4.895168
+      },
+      {
+        "name": "Hamburg",
+        "latitude": 53.550341,
+        "longitude": 10.000654
+      },
+      {
+        "name": "Dusseldorf",
+        "latitude": 51.225402,
+        "longitude": 6.776314
+      }
+    ],
+    "type": [
+      "Apartment",
+      "House",
+      "Room",
+      "Hotel"
+    ],
+    "userType": [
+      "Pro",
+      "Common"
+    ],
+    "facilities": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "titles": [
+      "Hotel Lutetia",
+      "Cologne Marriott Hotel",
+      "Steigenberger Wiltcher's",
+      "Radisson Collection Grand Place Brussels",
+      "Hotel Le Plaza Brussels",
+      "Tangla Hotel Brussels",
+      "Excelsior Hotel Ernst am Dom",
+      "Hyatt Regency Köln",
+      "Althoff Grandhotel Schloss Bensberg",
+      "Grand Hotel Amrâth Amsterdam",
+      "NH Collection Amsterdam Doelen",
+      "The Westin Hamburg",
+      "Renaissance Hamburg Hotel",
+      "Le Méridien Hamburg",
+      "Steigenberger Parkhotel Düsseldorf",
+      "White Lofty"
+    ],
+    "descriptions": [
+      "Этот отель класса люкс расположен в самом центре города, между набережной реки и оживленным Старым городом.",
+      "Этот отель расположен в Дюссельдорфе, на престижной торговой улице.",
+      "Отель расположен в здании филармонии. Из окон открывается вид на реку и город.",
+      "Дизайн-отель расположен в центре города, на берегу озера, откуда открывается живописный вид.",
+      "Этот отель располагает традиционным гриль-рестораном и прямым выходом к эксклюзивному торговому району. Прогулка до озера занимает 3 минуты.",
+      "Бутик-отель занимает здание XVII века на берегу реки. Это старейший отель в стране. Помещения отеля были отремонтированы.",
+      "Отель расположен в центре города, в 300 метрах от Центрального железнодорожного вокзала. В отеле работает ресторан и бар. На территории обустроена собственная парковка.",
+      "Гранд-отель расположен в самом центре города, на краю знаменитой площади, напротив Королевского дворца.",
+      "Фешенебельный отель расположен в здании бывшей публичной библиотеки, в самом центре района Кольцо каналов."
+    ],
+    "previewImage": [
+      "preview1.jpg",
+      "preview2.jpg",
+      "preview3.jpg",
+      "preview4.jpg",
+      "preview5.jpg",
+      "preview6.jpg"
+    ],
+    "image": [
+      "image1.jpg",
+      "image2.jpg",
+      "image3.jpg",
+      "image4.jpg",
+      "image5.jpg",
+      "image6.jpg"
+    ],
+    "users": [
+      "Иван Иванов",
+      "Олег Сидоров",
+      "Пьер Безухов",
+      "Роланд Дискейн",
+      "Холи Гибни",
+      "Джек Торренс",
+      "Антон Городецкий",
+      "Борис Гесер",
+      "Рокки Бальбоа",
+      "Джон Смит"
+    ],
+    "emails": [
+      "snow@pisem.local",
+      "president@dka.local",
+      "fish@big.local",
+      "test@pisem.local",
+      "freedom@pisem.local",
+      "rolan@pochta.local",
+      "author@mir.local",
+      "test@lost.loca",
+      "kujo-fan@story.local"
+    ],
+    "avatars": [
+      "user.jpg",
+      "photo.jpg",
+      "awesome-avatar.jpg",
+      "roland.jpg",
+      "smit.jpg",
+      "coffee.jpg"
+    ]
+  }
+}
