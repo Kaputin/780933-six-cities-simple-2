@@ -1,78 +1,35 @@
-import { readFileSync } from 'fs';
-import { OfferTypeEnum } from '../../types/offer-type.enum.js';
-import { Offer } from '../../types/offer.type.js';
+import EventEmitter from 'events';
+import { createReadStream } from 'fs';
 import { FileReaderInterface } from './file-reader.interface.js';
-import { OfferCityEnum } from '../../types/offer-city.enum.js';
-import { UserTypeEnum } from '../../types/user-type.enum.js';
-import { User } from '../../types/user.type.js';
-import { CoordinatesType } from '../../types/coordinates.type.js';
 
-export default class TSVFileReader implements FileReaderInterface {
-  private rawData = '';
 
-  constructor(public filename: string) { }
-
-  public read(): void {
-    this.rawData = readFileSync(this.filename, { encoding: 'utf8' });
+export default class TSVFileReader extends EventEmitter implements FileReaderInterface {
+  constructor(public filename: string) {
+    super();
   }
 
-  public toArray(): Offer[] {
-    if (!this.rawData) {
-      return [];
+  public async read():Promise<void> {
+    const stream = createReadStream(this.filename, {
+      highWaterMark: 16384,
+      encoding: 'utf-8',
+    });
+
+    let lineRead = '';
+    let endLinePosition = -1;
+    let importedRowCount = 0;
+
+    for await (const chunk of stream) {
+      lineRead += chunk.toString();
+
+      while ((endLinePosition = lineRead.indexOf('\n')) >= 0) {
+        const completeRow = lineRead.slice(0, endLinePosition + 1);
+        lineRead = lineRead.slice(++endLinePosition);
+        importedRowCount++;
+
+        this.emit('line', completeRow);
+      }
     }
 
-    return this.rawData
-      .split('\n')
-      .filter((row) => row.trim() !== '')
-      .map((line) => line.split('\t'))
-      .map(([ title,
-        description,
-        createdDate,
-        city,
-        previewImage,
-        image,
-        premium,
-        rating,
-        type,
-        roomsNumber,
-        guestsNumber,
-        price,
-        facilities,
-        userName,
-        email,
-        avatarPath,
-        password,
-        userType,
-        commentsNumber,
-        latitude,
-        longitude
-      ]) => ({
-        title,
-        description,
-        postDate: new Date(createdDate),
-        city: OfferCityEnum[city as 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf'],
-        previewImage,
-        image,
-        premium: premium === 'да'?? true,
-        rating: Number(rating),
-        type: OfferTypeEnum[type as 'Apartment' | 'House' | 'Room' | 'Hotel'],
-        roomsNumber: Number(roomsNumber),
-        guestsNumber: Number(guestsNumber),
-        price: Number(price),
-        facilities: facilities.split(';')
-          .map((name) => ({name})),
-        user: {
-          name: userName,
-          email,
-          avatarPath,
-          password,
-          type: UserTypeEnum[userType as 'Pro' | 'Common'],
-        } as User,
-        commentsNumber: Number(commentsNumber),
-        coordinates: {
-          latitude: Number(latitude),
-          longitude: Number(longitude)
-        } as CoordinatesType,
-      }));
+    this.emit('end', importedRowCount);
   }
 }
