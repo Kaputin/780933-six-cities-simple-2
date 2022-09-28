@@ -35,7 +35,6 @@ export default class OfferGenerator implements OfferGeneratorInterface {
     const userName = getRandomItem<string>(this.mockData.users);
     const email = getRandomItem<string>(this.mockData.emails);
     const avatarPath = getRandomItem<string>(this.mockData.avatars);
-    const password = Math.random().toString(36).slice(-8);
     const userType = getRandomItem<string>(this.mockData.userType);
     const commentsNumber = generateRandomValue(MIN_COMMENTS, MAX_COMMENTS).toString();
     const latitude = city.latitude;
@@ -58,7 +57,6 @@ export default class OfferGenerator implements OfferGeneratorInterface {
       userName,
       email,
       avatarPath,
-      password,
       userType,
       commentsNumber,
       latitude,
