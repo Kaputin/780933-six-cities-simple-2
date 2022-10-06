@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { OfferTypeEnum } from '../types/offer-type.enum.js';
 import { Offer } from '../types/offer.type.js';
 import { OfferCityEnum } from '../types/offer-city.enum.js';
@@ -23,7 +24,6 @@ export const createOffer = (row: string) => {
     userName,
     email,
     avatarPath,
-    password,
     userType,
     commentsNumber,
     latitude,
@@ -47,7 +47,6 @@ export const createOffer = (row: string) => {
       name: userName,
       email,
       avatarPath,
-      password,
       type: UserTypeEnum[userType as 'Pro' | 'Common'],
     } as User,
     commentsNumber: Number(commentsNumber),
@@ -60,3 +59,8 @@ export const createOffer = (row: string) => {
 
 export const getErrorMessage = (error: unknown): string =>
   error instanceof Error ? error.message : '';
+
+export const createSHA256 = (line: string, salt: string): string => {
+  const shaHasher = crypto.createHmac('sha256', salt);
+  return shaHasher.update(line).digest('hex');
+};
