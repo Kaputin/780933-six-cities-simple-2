@@ -14,8 +14,8 @@ import {UserModel} from '../modules/user/user.entity.js';
 import {Offer} from '../types/offer.type.js';
 import {LoggerInterface} from '../common/logger/logger.interface.js';
 import {DatabaseInterface} from '../common/database-client/database.interface.js';
+import {configSchema} from '../common/config/config.schema.js';
 
-const DEFAULT_DB_PORT = 27017;
 const DEFAULT_USER_PASSWORD = '123456';
 
 export default class ImportCommand implements CliCommandInterface {
@@ -44,7 +44,6 @@ export default class ImportCommand implements CliCommandInterface {
 
     await this.offerService.create({
       ...offer,
-      // categories,
       userId: user.id,
     });
   }
@@ -61,7 +60,8 @@ export default class ImportCommand implements CliCommandInterface {
   }
 
   public async execute(filename: string, login: string, password: string, host: string, dbname: string, salt: string): Promise<void> {
-    const uri = getURI(login, password, host, DEFAULT_DB_PORT, dbname);
+    const port = configSchema.get('DB_PORT');
+    const uri = getURI(login, password, host, port, dbname);
     this.salt = salt;
 
     await this.databaseService.connect(uri);
