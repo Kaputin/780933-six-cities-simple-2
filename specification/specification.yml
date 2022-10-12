@@ -1,0 +1,448 @@
+openapi: 3.0.0
+info:
+  title: API сервер для демо-проекта «Шесть городов (простой)».
+  description: |-
+    * Список ресурсов и маршрутов сервера «Шесть городов (простой)».
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 2.0.0
+tags:
+  - name: offers
+    description: Действия с объявлениями.
+  - name: comments
+    description: Действия с комментариями.
+  - name: users
+    description: Действия с пользователем.
+paths:
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Регистрация пользователя
+      description: Регистрирует нового пользователя.
+
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/infoUser'
+        required: true
+
+      responses:
+        "201":
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        "409":
+          description: Пользователь с таким email уже существует.
+
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Авторизация пользователя
+      description: Авторизует пользователя на основе логина и пароля
+
+      requestBody:
+        description: Информация для входа в закрытую часть приложения.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login'
+        required: true
+
+      responses:
+        "200":
+          description: Пользователь успешно авторизован.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        "422":
+          description:  Переданы некорректные значения.
+
+    get:
+      tags:
+        - users
+      summary: Проверка состояния пользователя
+      description: Возвращает информацию по авторизованному пользователю
+
+      responses:
+        "200":
+          description: Информация по авторизованному пользователю
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/infoUser'
+
+        "401":
+          description: Ошибка авторизации
+
+  /comments/{offerId}/:
+    get:
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          description: ID предложения.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      tags:
+        - comments
+      summary: Получение комментариев предложения по id
+      description: Возвращает комментарии предложения по id
+
+      responses:
+        "200":
+          description: Список комментариев
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comments'
+
+        "401":
+          description: Ошибка авторизации
+
+    post:
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          description: ID предложения.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      tags:
+        - comments
+      summary: Добавление комментария
+      description: Добавляет комментарий
+
+      requestBody:
+        description: Информация для создания комментария.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+        required: true
+
+      responses:
+        "201":
+          description: Комментарий создан успешно.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comment'
+
+        "401":
+          description: Ошибка авторизации
+
+
+  /offers/:
+    get:
+      tags:
+        - offers
+      summary: Получение списка предложений по аренде
+      description: Возвращает список предложений по аренде
+
+      responses:
+        "200":
+          description: Список предложений
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+
+        "401":
+          description: Ошибка авторизации
+
+    post:
+      tags:
+        - offers
+      summary: Создание нового предложения
+      description: Создает новое предложение
+
+      requestBody:
+        description: Информация для создания нового предложения.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/offer'
+        required: true
+
+      responses:
+        "201":
+          description: Предложение создано успешно. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+
+        "401":
+          description: Ошибка авторизации
+
+  /offers/{offerId}/:
+    get:
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          description: ID предложения.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      tags:
+        - offers
+      summary: Получение предложения по id
+      description: Возвращает предложение по id
+
+      responses:
+        "200":
+          description: Информация по выбранному предложению
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+
+        "401":
+          description: Ошибка авторизации
+
+    put:
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          description: ID предложения.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      tags:
+        - offers
+      summary: Редактирование предложения
+      description: Изменяет предложение
+
+      requestBody:
+        description: Информация для редактирования предложения.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/offer'
+        required: true
+
+      responses:
+        "200":
+          description: Предложение изменено успешно.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+
+        "401":
+          description: Ошибка авторизации
+
+    delete:
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          description: ID предложения.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      tags:
+        - offers
+      summary: Удаление предложения
+      description: Удаляет предложение
+
+      responses:
+        "200":
+          description: Предложение удалено успешно.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+
+        "401":
+          description: Ошибка авторизации
+
+
+components:
+  schemas:
+    infoUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+        name:
+          type: string
+          example: Keks
+
+        avatarPath:
+          type: string
+          example: cat.jpg
+
+        type:
+          type: string
+          example: Pro
+
+        password:
+          type: string
+          example: 123456
+
+    user:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+    login:
+      type: object
+
+      properties:
+        password:
+          type: string
+          example: 123456
+
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+    checkLogin:
+      type: object
+
+      properties:
+        token:
+          type: string
+          example: 123456
+
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+    offer:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Hamburg Hotel
+
+        description:
+          type: string
+          example: Отель расположен в здании филармонии
+
+        postDate:
+          type: string
+          example: 2022-09-13T01:02:08.098Z
+
+        city:
+          type: string
+          example: Hamburg
+
+        previewImage:
+          type: string
+          example: 2022-09-13T01:02:08.098Z
+
+        image:
+          type: string
+          example: preview6.jpg
+
+        premium:
+          type: boolean
+          example: true
+
+        rating:
+          type: number
+          example: 5
+
+        type:
+          type: string
+          example: Room
+
+        roomsNumber:
+          type: number
+          example: 3
+
+        guestsNumber:
+          type: number
+          example: 3
+
+        price:
+          type: number
+          example: 10000
+
+        facilities:
+          type: array
+          items:
+            type: string
+            example: Laptop
+
+        userId:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        commentsNumber:
+          type: number
+          example: 5
+
+        coordinates:
+          type: object
+
+          properties:
+            latitude:
+              type: number
+              example: 53.550341
+
+            longitude:
+              type: number
+              example: 10.000654
+
+    offers:
+      type: array
+      items:
+        $ref: "#/components/schemas/offer"
+
+
+    comment:
+      type: object
+
+      properties:
+        text:
+          type: string
+          example: пример комментария
+
+        userId:
+          type: number
+          example: 101
+
+
+        offerId:
+          type: number
+          example: 10
+
+    comments:
+      type: array
+      items:
+        $ref: "#/components/schemas/comment"
+
