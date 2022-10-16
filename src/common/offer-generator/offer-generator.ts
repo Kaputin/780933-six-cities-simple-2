@@ -15,6 +15,8 @@ const MIN_COMMENTS = 1;
 const MAX_COMMENTS = 50;
 const FIRST_WEEK_DAY = 1;
 const LAST_WEEK_DAY = 7;
+const MIN_RATING_COUNT = 1;
+const MAX_RATING_COUNT = 1000;
 export default class OfferGenerator implements OfferGeneratorInterface {
   constructor(private readonly mockData: MockData) {}
 
@@ -27,6 +29,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
     const image = getRandomItem<string>(this.mockData.image);
     const premium = Math.random() < 0.5;
     const rating = generateRandomValue(MIN_RATING, MAX_RATING).toString();
+    const ratingCount = generateRandomValue(MIN_RATING_COUNT, MAX_RATING_COUNT).toString();
     const type = getRandomItem<string>(this.mockData.type);
     const roomsNumber = generateRandomValue(MIN_ROOMS, MAX_ROOMS).toString();
     const guestsNumber = generateRandomValue(MIN_GUESTS, MAX_GUESTS).toString();
@@ -49,6 +52,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
       image,
       premium,
       rating,
+      ratingCount,
       type,
       roomsNumber,
       guestsNumber,

@@ -5,6 +5,8 @@ import {DocumentType, types} from '@typegoose/typegoose';
 import {OfferEntity} from './offer.entity.js';
 import {Component} from '../../types/component.types.js';
 import {LoggerInterface} from '../../common/logger/logger.interface.js';
+import UpdateOfferDto from './dto/update-offer.dto.js';
+import {DEFAULT_OFFER_COUNT} from './offer.constant.js';
 
 @injectable()
 export default class OfferService implements OfferServiceInterface {
@@ -21,6 +23,50 @@ export default class OfferService implements OfferServiceInterface {
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(offerId).exec();
+    return this.offerModel
+      .findById(offerId)
+      .populate(['userId'])
+      .exec();
+  }
+
+  public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {
+    const limit = count ?? DEFAULT_OFFER_COUNT;
+    return this.offerModel
+      .find({}, {}, {limit})
+      .populate(['userId'])
+      .exec();
+  }
+
+  public async deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel
+      .findByIdAndDelete(offerId)
+      .exec();
+  }
+
+  public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel
+      .findByIdAndUpdate(offerId, dto, {new: true})
+      .populate(['userId'])
+      .exec();
+  }
+
+  public async exists(documentId: string): Promise<boolean> {
+    return (await this.offerModel
+      .exists({_id: documentId})) !== null;
+  }
+
+  public async incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel
+      .findByIdAndUpdate(offerId, {'$inc': {
+        commentsNumber: 1,
+      }}).exec();
+  }
+
+  public async setRating(offerId: string, newRating: number): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel
+      .findById(offerId, (offer: OfferEntity) => {
+        offer.rating = ((offer.rating * offer.ratingCount) + newRating) / (offer.ratingCount + 1);
+        offer.ratingCount += 1;
+      }).exec();
   }
 }
