@@ -5,4 +5,5 @@ export type CommentType = {
   postDate: Date;
   rating: number;
   user: User;
+  offerId: number;
 }

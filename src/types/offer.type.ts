@@ -13,6 +13,7 @@ export type Offer = {
   image: string;
   premium: boolean;
   rating: number;
+  ratingCount: number;
   type: OfferTypeEnum;
   roomsNumber: number;
   guestsNumber: number;
