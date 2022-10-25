@@ -6,4 +6,5 @@ export type CommentType = {
   rating: number;
   user: User;
   offerId: number;
+  ratingCount: number;
 }

@@ -2,3 +2,102 @@
 GET http://localhost:3123/api HTTP/1.1
 
 ###
+
+# Пользователи
+## Получить список пользователей
+
+GET http://localhost:9000/users HTTP/1.1
+Content-Type: application/json
+
+###
+
+# Пользователи
+## Регистрация пользователя
+
+POST http://localhost:9000/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "torans@overlook.net",
+  "avatarPath": "torrance.png",
+  "name": "Jack Sparrow",
+  "password": "shining",
+  "type": "Pro"
+}
+
+###
+
+## Авторизация пользователя
+
+POST http://localhost:9000/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "torans@overlook.net",
+  "password": "shining"
+}
+
+###
+
+# Объявления
+## Объявление по идентификатору
+
+GET http://localhost:9000/offers/634b6b51620803650e26282b HTTP/1.1
+
+###
+
+## Список объявлений
+
+GET http://localhost:9000/offers HTTP/1.1
+
+###
+
+## Создание объявления
+
+POST http://localhost:9000/offers HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "test1",
+  "description": "test1",
+  "postDate": "2022-05-12T11:56:37.573Z",
+  "city": "Amsterdam",
+  "previewImage": "previewImage.png",
+  "image": "image.png",
+  "premium": true,
+  "type": "Apartment",
+  "roomsNumber": 2,
+  "guestsNumber": 3,
+  "price": 10000,
+  "facilities": [
+    {
+      "name": "Washer"
+    }
+  ],
+  "userId": "634b6b51620803650e262828",
+  "coordinates": {
+    "latitude": 52.370216,
+    "longitude": 4.895168
+  }
+}
+
+###
+
+## Удаление объявления
+
+DELETE http://localhost:9000/offers/634b6b52620803650e262850 HTTP/1.1
+
+###
+
+## Обновление объявления
+
+PATCH http://localhost:9000/offers/634b6b52620803650e26284b HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "test update",
+  "description": "Проверка обновления",
+  "price": 5000
+}
+
+###
