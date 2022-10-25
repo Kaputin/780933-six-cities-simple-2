@@ -22,6 +22,14 @@ export default class CommentService implements CommentServiceInterface {
       .populate('userId');
   }
 
+  public async setRating(commentId: string, newRating: number): Promise<DocumentType<CommentEntity> | null> {
+    return this.commentModel
+      .findById(commentId, (comment: CommentEntity) => {
+        comment.rating = ((comment.rating * comment.ratingCount) + newRating) / (comment.ratingCount + 1);
+        comment.ratingCount += 1;
+      }).exec();
+  }
+
   public async deleteByOfferId(offerId: string): Promise<number> {
     const result = await this.commentModel
       .deleteMany({offerId})
