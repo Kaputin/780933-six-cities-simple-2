@@ -37,7 +37,7 @@ export const createOffer = (row: string) => {
     postDate: new Date(createdDate),
     city: OfferCityEnum[city as 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf'],
     previewImage,
-    image,
+    image: image.split('-'),
     premium: premium === 'да'?? true,
     rating: Number(rating),
     ratingCount: Number(ratingCount),

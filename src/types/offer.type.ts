@@ -10,7 +10,7 @@ export type Offer = {
   postDate: Date;
   city: OfferCityEnum;
   previewImage: string;
-  image: string;
+  image: string[];
   premium: boolean;
   rating: number;
   ratingCount: number;
