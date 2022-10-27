@@ -365,8 +365,10 @@ components:
           example: 2022-09-13T01:02:08.098Z
 
         image:
-          type: string
-          example: preview6.jpg
+          type: array
+          items:
+            type: string
+            example: preview6.jpg
 
         premium:
           type: boolean

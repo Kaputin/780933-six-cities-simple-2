@@ -9,3 +9,6 @@ export const getRandomItems = <T>(items: T[]):T[] => {
 
 export const getRandomItem = <T>(items: T[]):T =>
   items[generateRandomValue(0, items.length -1)];
+
+export const shuffle = (items: string[]):string =>
+  items.sort(() => Math.random() - 0.5).join('-');

@@ -18,7 +18,7 @@ export default class OfferResponse {
   public city!: string;
 
   @Expose()
-  public image!: string;
+  public image!: string[];
 
   @Expose()
   public previewImage!: string;

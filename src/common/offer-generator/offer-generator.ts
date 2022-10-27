@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { MockData } from '../../types/mock-data.type.js';
-import { generateRandomValue, getRandomItem, getRandomItems } from '../../utils/random.js';
+import { generateRandomValue, getRandomItem, getRandomItems, shuffle } from '../../utils/random.js';
 import { OfferGeneratorInterface } from './offer-generator.interface.js';
 
 const MIN_PRICE = 100;
@@ -26,7 +26,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
     const createdDate =  dayjs().subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day').toISOString();
     const city = getRandomItem<{name: string, latitude: string, longitude: string}>(this.mockData.city);
     const previewImage = getRandomItem<string>(this.mockData.previewImage);
-    const image = getRandomItem<string>(this.mockData.image);
+    const image = shuffle(this.mockData.image);
     const premium = Math.random() < 0.5;
     const rating = generateRandomValue(MIN_RATING, MAX_RATING).toString();
     const ratingCount = generateRandomValue(MIN_RATING_COUNT, MAX_RATING_COUNT).toString();
