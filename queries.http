@@ -118,3 +118,15 @@ Content-Type: application/json
 GET http://localhost:9000/offers/635a5fee600f4d90f470216b/comments HTTP/1.1
 
 ###
+
+## Отправка аватарки пользователю
+
+POST http://localhost:9000/users/635a5fee600f4d90f4702168/avatar HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="screen.png"
+Content-Type: image/png
+
+< /Users/test/sceen.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
