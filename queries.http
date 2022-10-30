@@ -18,9 +18,9 @@ POST http://localhost:9000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "torans@overlook.net",
+  "email": "test@overlook.net",
   "avatarPath": "torrance.png",
-  "name": "Jack Sparrow",
+  "name": "Bob Sparrow",
   "password": "shining",
   "type": "Pro"
 }
@@ -33,9 +33,16 @@ POST http://localhost:9000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "torans@overlook.net",
+  "email": "test@overlook.net",
   "password": "shining"
 }
+
+###
+
+
+## Проверка токена пользователя
+GET http://localhost:9000/users/login HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2submV0IiwiaWQiOiI2MzVlZWNlYmMyYWQ3NGJiMDVhNTNiNzIiLCJpYXQiOjE2NjcxNjU0MzQsImV4cCI6MTY2NzMzODIzNH0.aBzxIti3MFrCol805h9sJpPJ_FY9b7VMVdSc0T0wCS0
 
 ###
 
