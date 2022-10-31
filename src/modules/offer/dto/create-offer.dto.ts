@@ -11,7 +11,6 @@ import {
   IsInt,
   IsMongoId,
   Max,
-  MaxLength,
   Min,
   IsString, Length
 } from 'class-validator';
@@ -30,12 +29,6 @@ export default class CreateOfferDto {
 
   @IsEnum(OfferCityEnum, {message: 'city must be Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf'})
   public city!: OfferCityEnum;
-
-  @MaxLength(256, {message: 'Too short for field «previewImage»'})
-  public previewImage!: string;
-
-  @IsArray({message: 'facilities must be an array'})
-  public image?: string[];
 
   @IsBoolean({message: 'premium must be an boolean'})
   public premium!: boolean;
